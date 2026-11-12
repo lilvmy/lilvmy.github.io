@@ -24,23 +24,27 @@ const navItems = isEn
     ];
 ---
 
-<header class="sticky top-0 z-30 w-full bg-base-100/90 backdrop-blur border-b border-base-200 transition-all">
+<header
+  style="background-color: var(--theme-header);"
+  class="sticky top-0 z-30 w-full backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all"
+>
   <div class="max-w-[960px] mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
     <!-- 手机端下拉菜单 -->
     <div class="dropdown md:hidden">
-      <label tabindex="0" class="btn btn-ghost btn-circle" aria-label="Menu">
+      <label tabindex="0" class="btn btn-ghost btn-circle nav-dynamic-btn" aria-label="Menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </label>
-      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow-lg bg-base-100 rounded-box w-40 border border-base-200">
+      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow-lg bg-white rounded-box w-40 border border-slate-200">
         {navItems.map((item) => (
           <li>
             <a
               href={item.href}
+              style={sideBarActiveItemID === item.id ? "color: var(--theme-primary); background-color: var(--theme-primary-light);" : ""}
               class:list={[
-                "py-2 text-base",
-                sideBarActiveItemID === item.id ? "text-blue-600 font-bold bg-base-200/60" : "text-slate-700"
+                "nav-dynamic-btn py-2 text-base rounded-lg",
+                sideBarActiveItemID === item.id ? "font-bold" : "text-slate-700"
               ]}
             >
               {item.label}
@@ -53,21 +57,25 @@ const navItems = isEn
     <!-- 电脑端左侧占位，使中间导航居中 -->
     <div class="hidden md:block w-24"></div>
 
-    <!-- 电脑端横向导航栏 -->
-    <nav class="hidden md:flex items-center space-x-8">
-      {navItems.map((item) => (
-        <a
-          href={item.href}
-          class:list={[
-            "text-base transition-colors py-1",
-            sideBarActiveItemID === item.id
-              ? "text-blue-600 font-bold border-b-2 border-blue-600"
-              : "text-slate-700 hover:text-blue-600 font-medium"
-          ]}
-        >
-          {item.label}
-        </a>
-      ))}
+    <!-- 电脑端横向导航栏（带悬停背景、底部弹性指示条与点击水波纹） -->
+    <nav class="hidden md:flex items-center space-x-3">
+      {navItems.map((item) => {
+        const active = sideBarActiveItemID === item.id;
+        return (
+          <a
+            href={item.href}
+            style={active ? "color: var(--theme-primary); background-color: var(--theme-primary-light);" : ""}
+            class:list={[
+              "nav-dynamic-btn nav-underline px-4 py-2 rounded-full text-base tracking-wide",
+              active
+                ? "is-active font-bold"
+                : "text-slate-700 font-medium hover:bg-slate-200/50"
+            ]}
+          >
+            {item.label}
+          </a>
+        );
+      })}
     </nav>
 
     <!-- 右侧中英文切换胶囊 -->
