@@ -1,31 +1,55 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
+
+// 以后每次新增动态，直接复制到数组最前面，第一条会自动显示 NEW 角标与礼花
+const newsList = [
+  {
+    title: "论文FSAT被IEEE Transactions on Information Forensics and Security录用(CCF-A, JCR Q1, 中科院1区Top, 2026IF: 8.0).",
+    img: "/post_img.webp",
+    desc: "项目简介与核心成果说明。",
+    url: "/publications",
+  },
+  /* 新增动态模板（取消注释并修改内容即可使用，原第一条的 NEW 会自动消失）：
+  {
+    title: "第二条动态标题",
+    img: "/post_img.webp",
+    desc: "第二条动态简介说明。",
+    url: "/news",
+  },
+  */
+];
 ---
 
 <BaseLayout sideBarActiveItemID="home">
-  <div class="pb-12 mt-4 flex flex-col md:flex-row items-center md:items-start gap-8">
-    <!-- 个人头像（请确保 public/ 目录下有对应的图片文件） -->
+  <div class="pb-10 mt-4 flex flex-col md:flex-row items-center md:items-start gap-8">
+    <!-- 个人头像 -->
     <div class="shrink-0">
       <img
         src="/ld.jpg"
-        alt="Profile"
+        alt="李冬"
         class="w-36 h-36 md:w-44 md:h-44 rounded-full object-cover shadow-md border border-base-200"
       />
     </div>
 
-    <!-- 右侧个人简介与社交按钮 -->
-    <div class="text-center md:text-left">
+    <!-- 右侧个人简介、教育经历与社交按钮 -->
+    <div class="flex-1 text-center md:text-left">
       <div class="text-4xl font-bold">李冬</div>
       <div class="text-xl py-2 text-slate-600 font-medium">暨南大学网络空间安全学院 / 青蓝学者</div>
-      <p class="py-2 text-base leading-relaxed">
-        <p>我目前是暨南大学网络空间安全学院教师、青蓝学者。于2026年获得重庆大学工学博士学位，导师为廖晓峰教授（IEEE/AAIA/AIIA Fellow、长江学者特聘教授、CPS教育部重点实验室主任）。曾为新加坡南洋理工大学访问学者，合作导师为Anupam Chattopadhyay教授（世界科学院院士、IEEE Senior Member）。</p>
-        <p>主要从事密文检索、隐私计算、分布式机器学习安全等领域的相关科学前沿研究。在IEEE TIFS、IEEE TDSC、IEEE TSC、IEEE TCE、IEEE TCC、IEEE TCNS、IEEE TNSE等国际高水平期刊和会议上发表高质量学术论文15余篇（IEEE Transactions系列汇刊论文10余篇），其中第一作者、通信作者等主要作者身份10余篇；
-申请国家发明专利6余项。担任国际期刊CMC-Computers Materials & Continua客座编辑等，长期担任IEEE TIFS、IEEE TPDS、IEEE TDSC、IEEE TCC、IEEE TCE、IEEE TNSE、NCAA等著名期刊的审稿专家。</p>
-        <p>作为项目负责人主持重庆市研究生科研创新项目，作为项目骨干参研国家重点研发计划项目课题、国家自然科学基金重点项目、国家自然科学基金面向项目、百万级横向项目等。</p>
-      </p>
 
-       <div class="divider my-2"></div>
+      <div class="py-2 text-base leading-relaxed">
+        <p>
+          我目前是暨南大学网络空间安全学院教师、青蓝学者。于2026年获得重庆大学工学博士学位，导师为廖晓峰教授（IEEE/AAIA/AIIA Fellow、长江学者特聘教授、CPS教育部重点实验室主任）。曾为新加坡南洋理工大学访问学者，合作导师为Anupam Chattopadhyay教授（世界科学院院士、IEEE Senior Member）。
+        </p>
+        <p>
+          主要从事密文检索、隐私计算、分布式机器学习安全等领域的相关科学前沿研究。在IEEE TIFS、IEEE TDSC、IEEE TSC、IEEE TCE、IEEE TCC、IEEE TCNS、IEEE TNSE等国际高水平期刊和会议上发表高质量学术论文15余篇（IEEE Transactions系列汇刊论文10余篇），其中第一作者、通信作者等主要作者身份10余篇；申请国家发明专利6余项。担任国际期刊CMC-Computers Materials & Continua客座编辑等，长期担任IEEE TIFS、IEEE TPDS、IEEE TDSC、IEEE TCC、IEEE TCE、IEEE TNSE、NCAA等著名期刊的审稿专家。
+        </p>
+        <p>
+          作为项目负责人主持重庆市研究生科研创新项目，作为项目骨干参研国家重点研发计划项目课题、国家自然科学基金重点项目、国家自然科学基金面向项目、百万级横向项目等。
+        </p>
+      </div>
+
+      <div class="divider my-2"></div>
 
       <div class="text-xl py-2 text-slate-600 font-medium">教育经历</div>
       <div class="space-y-3 text-base">
@@ -34,18 +58,18 @@ import HorizontalCard from "../components/HorizontalCard.astro";
             <strong>重庆大学</strong>&ensp;—&ensp;计算机科学与技术（博士）
           </div>
           <span class="text-slate-600 shrink-0">2022.09 – 2026.06</span>
-  </div>
+        </div>
 
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
-    <div>
-      <strong>西南大学</strong>&ensp;—&ensp;信号与信息处理（硕士）
-    </div>
-    <span class="text-slate-600 shrink-0">2019.09 – 2023.06</span>
-  </div>
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
+          <div>
+            <strong>西南大学</strong>&ensp;—&ensp;信号与信息处理（硕士）
+          </div>
+          <span class="text-slate-600 shrink-0">2019.09 – 2023.06</span>
+        </div>
+      </div>
 
-<div class="divider my-2"></div>
+      <div class="divider my-2"></div>
 
-</div>
       <div class="mt-5 flex flex-wrap justify-center md:justify-start gap-3">
         <a class="btn btn-sm md:btn-md" href="mailto:lilvmy@163.com" target="_blank">邮箱联系</a>
         <a class="btn btn-sm md:btn-md btn-outline" href="https://github.com/lilvmy" target="_blank">GitHub</a>
@@ -56,15 +80,26 @@ import HorizontalCard from "../components/HorizontalCard.astro";
 
   <div class="divider my-2"></div>
 
-  <div>
-    <div class="text-2xl w-full font-bold mb-4 mt-4">动态</div>
-  </div>
+  <!-- 动态区域（支持自动 NEW 与内部下拉滚动） -->
+  <div class="mt-4">
+    <div class="flex items-center justify-between mb-4">
+      <div class="text-2xl font-bold">动态</div>
+      <span class="text-sm text-slate-400">上下滑动查看更多</span>
+    </div>
 
-  <HorizontalCard
-    title="论文FSAT被IEEE Transactions on Information Forensics and Security录用(CCF-A, JCR Q1, 中科院1区Top, 2026IF: 8.0)."
-    img="/post_img.webp"
-    desc="项目简介与核心成果说明。
-    url="/publications"
-    badge="NEW"
-  />
+    <div class="custom-scrollbar max-h-[380px] overflow-y-auto rounded-2xl border border-slate-200/80 bg-white/75 p-4 shadow-xs">
+      {newsList.map((item, index) => (
+        <>
+          <HorizontalCard
+            title={item.title}
+            img={item.img}
+            desc={item.desc}
+            url={item.url}
+            badge={index === 0 ? "NEW" : undefined}
+          />
+          {index < newsList.length - 1 && <div class="divider my-1"></div>}
+        </>
+      ))}
+    </div>
+  </div>
 </BaseLayout>
