@@ -5,7 +5,7 @@ import HorizontalCard from "../components/HorizontalCard.astro";
 // 以后每次新增动态，直接复制到数组最前面，第一条会自动显示 NEW 角标与礼花
 const newsList = [
   {
-    title: "论文Mimi被IEEE Transactions on Dependable and Secure Computing录用(CCF-A, JCR Q1, 中科院1区Top, 2026IF: 8.0).",
+    title: "论文Mimi被IEEE Transactions on Dependable and Secure Computing录用(CCF-A, JCR Q1, 中科院1区Top, 2026IF: 7.5).",
     img: "/post_img.webp",
     desc: "项目简介与核心成果说明。",
     url: "/news",
@@ -88,7 +88,7 @@ const newsList = [
     </div>
 
     <div class="custom-scrollbar max-h-[380px] overflow-y-auto rounded-2xl border border-slate-200/80 bg-white/75 p-4 shadow-xs">
-      {newsList.map((item, index) => (
+      {[...newsList].reverse().map((item, index) => (
         <>
           <HorizontalCard
             title={item.title}
