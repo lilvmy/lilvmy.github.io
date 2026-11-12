@@ -47,14 +47,19 @@ const {
         font-family: "Times New Roman", Times, "KaiTi", "楷体", "STKaiti", "Kaiti SC", serif;
       }
 
-      main p,
+     main p,
       main text,
       main li {
         display: block;
         text-align: justify !important;
-        text-justify: inter-word;
+        text-justify: auto;
         hyphens: auto;
         -webkit-hyphens: auto;
+
+        letter-spacing: 0.03em;
+        word-spacing: 0.05em;
+        line-height: 1.8;
+        text-autospace: normal;
       }
 
       main li {
