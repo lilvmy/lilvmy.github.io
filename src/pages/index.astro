@@ -27,9 +27,21 @@ import HorizontalCard from "../components/HorizontalCard.astro";
        <div class="divider my-2"></div>
 
       <div class="text-xl py-2 text-slate-600 font-medium">教育经历</div>
-      <p class="py-2 text-base leading-relaxed">
-        2022/09-2026/06    重庆大学计算机学院
-      </p>
+      <div class="space-y-3 text-base">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
+          <div>
+            <strong>重庆大学</strong>&ensp;—&ensp;计算机科学与技术（博士）
+          </div>
+          <span class="text-slate-600 shrink-0">2022.09 – 2026.06</span>
+  </div>
+
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
+    <div>
+      <strong>西南大学</strong>&ensp;—&ensp;信号与信息处理（硕士）
+    </div>
+    <span class="text-slate-600 shrink-0">2019.09 – 2023.06</span>
+  </div>
+</div>
       <div class="mt-5 flex flex-wrap justify-center md:justify-start gap-3">
         <a class="btn btn-sm md:btn-md" href="mailto:lilvmy@163.com" target="_blank">邮箱联系</a>
         <a class="btn btn-sm md:btn-md btn-outline" href="https://github.com/lilvmy" target="_blank">GitHub</a>
