@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HorizontalCard from "../../components/HorizontalCard.astro";
+---
+
+<BaseLayout title="Your Name | Personal Homepage" sideBarActiveItemID="home">
+  <div class="pb-12 mt-5">
+    <div class="text-xl py-1">Hello 👋</div>
+    <div class="text-5xl font-bold">Your Name</div>
+    <div class="text-3xl py-3 font-bold">Researcher / Software Engineer</div>
+    <div class="py-2">
+      <text class="text-lg">
+        Welcome to my homepage. Here you can write a brief introduction about your academic background,
+        research interests, technical stack, and current work.
+      </text>
+    </div>
+    <div class="mt-8">
+      <a class="btn" href="mailto:your.email@example.com" target="_blank">Contact Me</a>
+      <a href="https://github.com/lilvmy" target="_blank" class="btn btn-outline ml-5">
+        GitHub
+      </a>
+    </div>
+  </div>
+
+  <div>
+    <div class="text-3xl w-full font-bold mb-2">Featured Projects</div>
+  </div>
+
+  <HorizontalCard
+    title="Featured Project 1"
+    img="/post_img.webp"
+    desc="A brief summary of the problem solved, core technologies used, and key outcomes."
+    url="/en/projects"
+    badge="NEW"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="Featured Project 2"
+    img="/post_img.webp"
+    desc="A brief description of your second highlighted project or research work."
+    url="/en/projects"
+  />
+</BaseLayout>
