@@ -1,4 +1,5 @@
 ---
+import LangSwitch from "./LangSwitch.astro"
 import SideBarFooter from "./SideBarFooter.astro";
 import { Image } from "astro:assets";
 import SideBarMenu from "./SideBarMenu.astro";
@@ -14,6 +15,9 @@ const { sideBarActiveItemID } = Astro.props;
           <div class="w-[8.5rem]">
             <Image class="mask mask-circle" format="webp" width={300} height={300} src="/ld.jpg" alt="Profile image" />
           </div>
+        </div>
+        <div class="flex justify-center mb-4">
+          <LangSwitch />
         </div>
       </a>
     </div>
