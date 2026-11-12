@@ -22,6 +22,20 @@ const {
     <BaseHead title={title} description={description} image={image} , ogType={ogType} />
     {TRANSITION_API && <ViewTransitions />}
   </head>
+<style is:global>
+      /* 全局字体：英文与数字优先匹配 Times New Roman，中文自动回退到楷体 */
+      body {
+        font-family: "Times New Roman", Times, "KaiTi", "楷体", "STKaiti", "Kaiti SC", serif;
+      }
+
+      /* 正文段落自动两端对齐 */
+      p {
+        text-align: justify;
+        text-justify: inter-ideograph;
+      }
+    </style>
+  </body>
+</html>
  <body>
     <div class="min-h-screen flex flex-col bg-base-100">
       <Header title={SITE_TITLE} sideBarActiveItemID={sideBarActiveItemID} />
