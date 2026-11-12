@@ -19,27 +19,10 @@ const {
 <!doctype html>
 <html lang="en" data-theme="lofi">
   <head>
-    <BaseHead title={title} description={description} image={image} , ogType={ogType} />
+    <BaseHead title={title} description={description} image={image} ogType={ogType} />
     {TRANSITION_API && <ViewTransitions />}
-  </head>
-<style is:global>
-/* 精细化内部下拉滚动条样式 */
-      .custom-scrollbar::-webkit-scrollbar {
-        width: 6px;
-      }
 
-      .custom-scrollbar::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      .custom-scrollbar::-webkit-scrollbar-thumb {
-        background-color: rgba(148, 163, 184, 0.45);
-        border-radius: 999px;
-      }
-
-      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background-color: var(--theme-primary);
-      }
+    <style is:global>
       /* ================= 1. 全站配色变量（可随时修改色值） ================= */
       :root {
         /* 默认方案：典雅学术蓝（搭配柔和浅灰白背景，长时间阅读不刺眼） */
@@ -58,13 +41,13 @@ const {
         /* --theme-primary: #5b21b6; --theme-primary-light: #ede9fe; --theme-bg: #faf8ff; --theme-header: rgba(255, 255, 255, 0.88); */
       }
 
-      /* ================= 2. 字体与两端对齐（保留原有设置） ================= */
+      /* ================= 2. 字体、间距与两端对齐 ================= */
       body {
         background-color: var(--theme-bg) !important;
         font-family: "Times New Roman", Times, "KaiTi", "楷体", "STKaiti", "Kaiti SC", serif;
       }
 
-     main p,
+      main p,
       main text,
       main li {
         display: block;
@@ -83,7 +66,35 @@ const {
         display: list-item;
       }
 
-      /* ================= 3. 页面切换平滑上浮入场动画 ================= */
+      /* 段落之间自动空出一整行（与 1.8 倍行高保持一致） */
+      main p {
+        margin-bottom: 1.8em;
+      }
+
+      /* 最后一个段落底部不留多余空白 */
+      main p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* ================= 3. 精细化内部下拉滚动条样式 ================= */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: rgba(148, 163, 184, 0.45);
+        border-radius: 999px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background-color: var(--theme-primary);
+      }
+
+      /* ================= 4. 页面切换平滑上浮入场动画 ================= */
       @keyframes pageFadeSlideUp {
         from {
           opacity: 0;
@@ -99,19 +110,17 @@ const {
         animation: pageFadeSlideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
 
-      /* ================= 4. 功能键悬停滑块与点击水波纹动效 ================= */
+      /* ================= 5. 功能键悬停滑块与点击水波纹动效 ================= */
       .nav-dynamic-btn {
         position: relative;
         overflow: hidden;
         transition: color 0.25s ease, background-color 0.25s ease, transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
-      /* 点击瞬间的弹性下压反馈 */
       .nav-dynamic-btn:active {
         transform: scale(0.92);
       }
 
-      /* 底部中心向外展开的动态指示条 */
       .nav-underline::after {
         content: "";
         position: absolute;
@@ -130,7 +139,6 @@ const {
         transform: scaleX(1);
       }
 
-      /* 点击扩散水波纹动画 */
       @keyframes rippleSpread {
         to {
           transform: scale(3.5);
@@ -147,18 +155,56 @@ const {
         transform: scale(0);
         animation: rippleSpread 0.55s ease-out forwards;
       }
-/* 段落之间自动空出一整行（与 1.8 倍行高保持一致） */
-      main p {
-        margin-bottom: 1.8em;
+
+      /* ================= 6. NEW 角标动态礼花与流光特效 ================= */
+      .badge-new-celebrate {
+        position: relative;
+        background: linear-gradient(135deg, #ef4444, #f59e0b, #ec4899) !important;
+        background-size: 200% 200% !important;
+        color: #ffffff !important;
+        border: none !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.06em;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(239, 68, 68, 0.35);
+        animation: newBadgeGlow 2.4s ease-in-out infinite;
+        transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
-      /* 最后一个段落底部不留多余空白 */
-      main p:last-child {
-        margin-bottom: 0;
+      .badge-new-celebrate:hover {
+        transform: scale(1.14);
+      }
+
+      @keyframes newBadgeGlow {
+        0%, 100% {
+          background-position: 0% 50%;
+          box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35);
+        }
+        50% {
+          background-position: 100% 50%;
+          box-shadow: 0 0 14px rgba(245, 158, 11, 0.65);
+        }
+      }
+
+      .confetti-particle {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        will-change: transform, opacity;
       }
     </style>
+  </head>
 
-    <!-- 点击功能键触发水波纹光圈脚本 -->
+  <body>
+    <div class="min-h-screen flex flex-col">
+      <Header title={SITE_TITLE} sideBarActiveItemID={sideBarActiveItemID} />
+      <main class="flex-1 w-full max-w-[900px] mx-auto px-6 pt-10 pb-12">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+
+    <!-- 1. 点击功能键触发水波纹光圈脚本 -->
     <script is:inline>
       document.addEventListener("pointerdown", function (e) {
         const target = e.target.closest(".nav-dynamic-btn, .btn");
@@ -176,17 +222,83 @@ const {
         setTimeout(() => ripple.remove(), 600);
       });
     </script>
-  </body>
-</html>
-  </body>
-</html>
- <body>
-    <div class="min-h-screen flex flex-col">
-      <Header title={SITE_TITLE} sideBarActiveItemID={sideBarActiveItemID} />
-      <main class="flex-1 w-full max-w-[900px] mx-auto px-6 pt-10 pb-12">
-        <slot />
-      </main>
-      <Footer />
-    </div>
+
+    <!-- 2. NEW 角标动态礼花脚本 -->
+    <script is:inline>
+      (function () {
+        const COLORS = ["#ef4444", "#f59e0b", "#10b981", "#3b82f6", "#8b5cf6", "#ec4899"];
+
+        function launchFirework(el) {
+          if (!el || el.dataset.cooling === "1") return;
+          const rect = el.getBoundingClientRect();
+          if (rect.width === 0 || rect.height === 0) return;
+
+          el.dataset.cooling = "1";
+          setTimeout(() => {
+            el.dataset.cooling = "0";
+          }, 700);
+
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const particleCount = 28;
+
+          for (let i = 0; i < particleCount; i++) {
+            const p = document.createElement("span");
+            p.className = "confetti-particle";
+
+            const isCircle = i % 3 === 0;
+            const size = 5 + Math.random() * 4;
+            p.style.width = size + "px";
+            p.style.height = (isCircle ? size : size * 0.55) + "px";
+            p.style.borderRadius = isCircle ? "50%" : "2px";
+            p.style.backgroundColor = COLORS[i % COLORS.length];
+            p.style.left = cx + "px";
+            p.style.top = cy + "px";
+            document.body.appendChild(p);
+
+            const angle = -Math.PI * (0.1 + Math.random() * 0.8);
+            const distance = 45 + Math.random() * 75;
+            const dx = Math.cos(angle) * distance + (Math.random() - 0.5) * 30;
+            const dyPeak = Math.sin(angle) * distance - 18;
+            const dyEnd = dyPeak + 45 + Math.random() * 35;
+            const rotate = (Math.random() - 0.5) * 720;
+            const duration = 750 + Math.random() * 450;
+
+            const anim = p.animate(
+              [
+                { transform: "translate(-50%, -50%) scale(0.4) rotate(0deg)", opacity: 1 },
+                { transform: `translate(${dx * 0.75}px, ${dyPeak}px) scale(1) rotate(${rotate * 0.6}deg)`, opacity: 1, offset: 0.45 },
+                { transform: `translate(${dx}px, ${dyEnd}px) scale(0.75) rotate(${rotate}deg)`, opacity: 0 }
+              ],
+              { duration: duration, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }
+            );
+
+            anim.onfinish = () => p.remove();
+          }
+        }
+
+        function initNewBadges() {
+          document.querySelectorAll(".badge").forEach((badge) => {
+            if (badge.textContent.trim().toUpperCase() === "NEW") {
+              badge.classList.add("badge-new-celebrate");
+              badge.title = "点击或悬停放礼花";
+              badge.addEventListener("mouseenter", () => launchFirework(badge));
+              badge.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                launchFirework(badge);
+              });
+              setTimeout(() => launchFirework(badge), 450);
+            }
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initNewBadges);
+        } else {
+          initNewBadges();
+        }
+      })();
+    </script>
   </body>
 </html>
