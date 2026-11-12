@@ -1,1 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
 
+<BaseLayout title="Students | Your Name" sideBarActiveItemID="students">
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Students & Team</div>
+  </div>
+
+  <h2 class="text-xl font-bold mt-6 mb-3">Current Graduate Students</h2>
+  <ul class="list-disc pl-6 space-y-2 text-base">
+    <li><strong>San Zhang</strong> (M.S. Student, 2025–Present) — Research Area: Artificial Intelligence</li>
+    <li><strong>Si Li</strong> (M.S. Student, 2026–Present) — Research Area: Computer Vision</li>
+  </ul>
+
+  <h2 class="text-xl font-bold mt-8 mb-3">Alumni</h2>
+  <ul class="list-disc pl-6 space-y-2 text-base">
+    <li><strong>Wu Wang</strong> (M.S., Class of 2025) — First Destination: XX Tech Company</li>
+  </ul>
+</BaseLayout>
