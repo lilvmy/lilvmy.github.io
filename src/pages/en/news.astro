@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TimeLineElement from "../../components/cv/TimeLine.astro";
+---
+
+<BaseLayout title="News | Your Name" sideBarActiveItemID="news">
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Latest News</div>
+  </div>
+
+  <div class="time-line-container mb-10">
+    <TimeLineElement title="Paper Accepted to XX Conference" subtitle="October 2026">
+      Our paper "Paper Title" has been accepted. The source code and dataset are now publicly available.
+    </TimeLineElement>
+    <TimeLineElement title="Awarded XX Fellowship / Grant" subtitle="June 2026">
+      Brief description of the milestone, project launch, or academic event.
+    </TimeLineElement>
+  </div>
+</BaseLayout>
