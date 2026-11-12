@@ -30,52 +30,5 @@ const {
       </main>
       <Footer />
     </div>
-
-    <script is:inline src="https://res.zvo.cn/translate/translate.js"></script>
-    <script is:inline>
-      (function () {
-        const ACTIVE_CLS = ["bg-blue-600", "text-white", "shadow-sm"];
-        const INACTIVE_CLS = ["text-slate-600", "hover:text-blue-600"];
-
-        function updateLangButtons(lang) {
-          document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
-            const isTarget = btn.getAttribute("data-lang-btn") === lang;
-            btn.classList.remove(...(isTarget ? INACTIVE_CLS : ACTIVE_CLS));
-            btn.classList.add(...(isTarget ? ACTIVE_CLS : INACTIVE_CLS));
-          });
-        }
-
-        window.switchSiteLang = function (lang) {
-          localStorage.setItem("site_lang", lang);
-          updateLangButtons(lang);
-          if (window.translate) {
-            translate.changeLanguage(lang === "en" ? "english" : "chinese_simplified");
-          }
-        };
-
-        function initAutoTranslate() {
-          const savedLang = localStorage.getItem("site_lang") || "zh";
-          updateLangButtons(savedLang);
-
-          if (!window.translate) return;
-          translate.language.setLocal("chinese_simplified");
-          translate.selectLanguageTag.show = false;
-          translate.service.use("client.edge");
-
-          if (savedLang === "en") {
-            translate.changeLanguage("english");
-          } else {
-            translate.execute();
-          }
-        }
-
-        document.addEventListener("astro:page-load", initAutoTranslate);
-        if (document.readyState === "complete") {
-          initAutoTranslate();
-        } else {
-          window.addEventListener("load", initAutoTranslate);
-        }
-      })();
-    </script>
   </body>
 </html>
