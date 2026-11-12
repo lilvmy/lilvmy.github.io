@@ -125,6 +125,15 @@ const {
         transform: scale(0);
         animation: rippleSpread 0.55s ease-out forwards;
       }
+/* 段落之间自动空出一整行（与 1.8 倍行高保持一致） */
+      main p {
+        margin-bottom: 1.8em;
+      }
+
+      /* 最后一个段落底部不留多余空白 */
+      main p:last-child {
+        margin-bottom: 0;
+      }
     </style>
 
     <!-- 点击功能键触发水波纹光圈脚本 -->
