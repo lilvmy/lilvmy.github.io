@@ -3,7 +3,6 @@ const pathname = Astro.url.pathname;
 const cleanPath = pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 const isEn = cleanPath === "/en" || cleanPath.startsWith("/en/");
 
-// 自动计算当前页面对应的中文与英文路径
 const zhPath = isEn ? (cleanPath.replace(/^\/en/, "") || "/") : cleanPath;
 const enPath = isEn ? cleanPath : (cleanPath === "/" ? "/en" : `/en${cleanPath}`);
 ---
