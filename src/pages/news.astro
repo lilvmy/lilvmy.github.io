@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TimeLineElement from "../components/cv/TimeLine.astro";
+---
+
+<BaseLayout title="动态 | News" sideBarActiveItemID="news">
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">最新动态</div>
+  </div>
+  <div class="time-line-container mb-10">
+    <TimeLineElement title="论文被 XX 会议接收" subtitle="2026年10月">
+      我们的研究工作《论文标题》已被国际会议录用，代码已开源。
+    </TimeLineElement>
+    <TimeLineElement title="获得 XX 奖项 / 项目立项" subtitle="2026年06月">
+      简要描述动态详情。
+    </TimeLineElement>
+  </div>
+</BaseLayout>
