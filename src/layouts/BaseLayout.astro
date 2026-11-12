@@ -23,17 +23,130 @@ const {
     {TRANSITION_API && <ViewTransitions />}
   </head>
 <style is:global>
-      /* 全局字体：英文与数字优先匹配 Times New Roman，中文自动回退到楷体 */
+      /* ================= 1. 全站配色变量（可随时修改色值） ================= */
+      :root {
+        /* 默认方案：典雅学术蓝（搭配柔和浅灰白背景，长时间阅读不刺眼） */
+        --theme-primary: #1e40af;       /* 主色调（高亮文字、下划线、选中胶囊） */
+        --theme-primary-light: #dbeafe; /* 浅色点缀（悬停背景、水波纹光晕） */
+        --theme-bg: #f8fafc;            /* 网页整体背景色 */
+        --theme-header: rgba(255, 255, 255, 0.88); /* 顶部导航栏毛玻璃背景 */
+
+        /* 备选方案 A（墨韵翡翠绿）：将上面 4 行替换为下面 4 行即可 */
+        /* --theme-primary: #065f46; --theme-primary-light: #d1fae5; --theme-bg: #f6faf8; --theme-header: rgba(255, 255, 255, 0.88); */
+
+        /* 备选方案 B（书卷暖棕金）：适合人文/经典学术风格 */
+        /* --theme-primary: #92400e; --theme-primary-light: #fef3c7; --theme-bg: #fcfaf7; --theme-header: rgba(252, 250, 247, 0.9); */
+
+        /* 备选方案 C（雅致靛紫）：适合设计/前沿科研风格 */
+        /* --theme-primary: #5b21b6; --theme-primary-light: #ede9fe; --theme-bg: #faf8ff; --theme-header: rgba(255, 255, 255, 0.88); */
+      }
+
+      /* ================= 2. 字体与两端对齐（保留原有设置） ================= */
       body {
+        background-color: var(--theme-bg) !important;
         font-family: "Times New Roman", Times, "KaiTi", "楷体", "STKaiti", "Kaiti SC", serif;
       }
 
-      /* 正文段落自动两端对齐 */
-      p {
-        text-align: justify;
-        text-justify: inter-ideograph;
+      main p,
+      main text,
+      main li {
+        display: block;
+        text-align: justify !important;
+        text-justify: inter-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+      }
+
+      main li {
+        display: list-item;
+      }
+
+      /* ================= 3. 页面切换平滑上浮入场动画 ================= */
+      @keyframes pageFadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      main {
+        animation: pageFadeSlideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      /* ================= 4. 功能键悬停滑块与点击水波纹动效 ================= */
+      .nav-dynamic-btn {
+        position: relative;
+        overflow: hidden;
+        transition: color 0.25s ease, background-color 0.25s ease, transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      /* 点击瞬间的弹性下压反馈 */
+      .nav-dynamic-btn:active {
+        transform: scale(0.92);
+      }
+
+      /* 底部中心向外展开的动态指示条 */
+      .nav-underline::after {
+        content: "";
+        position: absolute;
+        left: 20%;
+        right: 20%;
+        bottom: 4px;
+        height: 2.5px;
+        border-radius: 999px;
+        background-color: var(--theme-primary);
+        transform: scaleX(0);
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      .nav-underline:hover::after,
+      .nav-underline.is-active::after {
+        transform: scaleX(1);
+      }
+
+      /* 点击扩散水波纹动画 */
+      @keyframes rippleSpread {
+        to {
+          transform: scale(3.5);
+          opacity: 0;
+        }
+      }
+
+      .click-ripple {
+        position: absolute;
+        border-radius: 50%;
+        background-color: var(--theme-primary);
+        opacity: 0.28;
+        pointer-events: none;
+        transform: scale(0);
+        animation: rippleSpread 0.55s ease-out forwards;
       }
     </style>
+
+    <!-- 点击功能键触发水波纹光圈脚本 -->
+    <script is:inline>
+      document.addEventListener("pointerdown", function (e) {
+        const target = e.target.closest(".nav-dynamic-btn, .btn");
+        if (!target) return;
+
+        const rect = target.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const ripple = document.createElement("span");
+        ripple.className = "click-ripple";
+        ripple.style.width = ripple.style.height = size + "px";
+        ripple.style.left = e.clientX - rect.left - size / 2 + "px";
+        ripple.style.top = e.clientY - rect.top - size / 2 + "px";
+
+        target.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
+    </script>
+  </body>
+</html>
   </body>
 </html>
  <body>
