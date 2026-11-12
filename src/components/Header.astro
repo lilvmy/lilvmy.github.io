@@ -2,19 +2,31 @@
 import LangSwitch from "./LangSwitch.astro";
 const { sideBarActiveItemID } = Astro.props;
 
-const navItems = [
-  { id: "home", label: "简介", href: "/" },
-  { id: "news", label: "动态", href: "/news" },
-  { id: "publications", label: "论文", href: "/publications" },
-  { id: "students", label: "学生", href: "/students" },
-  { id: "projects", label: "项目", href: "/projects" },
-  { id: "honors", label: "荣誉", href: "/honors" },
-];
+const pathname = Astro.url.pathname;
+const isEn = pathname === "/en" || pathname.startsWith("/en/");
+
+const navItems = isEn
+  ? [
+      { id: "home", label: "About", href: "/en" },
+      { id: "news", label: "News", href: "/en/news" },
+      { id: "publications", label: "Publications", href: "/en/publications" },
+      { id: "students", label: "Students", href: "/en/students" },
+      { id: "projects", label: "Projects", href: "/en/projects" },
+      { id: "honors", label: "Honors", href: "/en/honors" },
+    ]
+  : [
+      { id: "home", label: "简介", href: "/" },
+      { id: "news", label: "动态", href: "/news" },
+      { id: "publications", label: "论文", href: "/publications" },
+      { id: "students", label: "学生", href: "/students" },
+      { id: "projects", label: "项目", href: "/projects" },
+      { id: "honors", label: "荣誉", href: "/honors" },
+    ];
 ---
 
 <header class="sticky top-0 z-30 w-full bg-base-100/90 backdrop-blur border-b border-base-200 transition-all">
   <div class="max-w-[960px] mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-    <!-- 手机端下拉菜单按钮 -->
+    <!-- 手机端下拉菜单 -->
     <div class="dropdown md:hidden">
       <label tabindex="0" class="btn btn-ghost btn-circle" aria-label="Menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -38,10 +50,10 @@ const navItems = [
       </ul>
     </div>
 
-    <!-- 电脑端左侧占位，确保中间 6 个栏目视觉居中 -->
+    <!-- 电脑端左侧占位，使中间导航居中 -->
     <div class="hidden md:block w-24"></div>
 
-    <!-- 电脑端横向导航栏目 -->
+    <!-- 电脑端横向导航栏 -->
     <nav class="hidden md:flex items-center space-x-8">
       {navItems.map((item) => (
         <a
@@ -58,7 +70,7 @@ const navItems = [
       ))}
     </nav>
 
-    <!-- 右侧中英文切换按钮 -->
+    <!-- 右侧中英文切换胶囊 -->
     <div class="flex items-center">
       <LangSwitch />
     </div>
