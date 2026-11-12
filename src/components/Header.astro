@@ -1,21 +1,66 @@
 ---
-import LangSwitch from "./LangSwitch.astro"
+import LangSwitch from "./LangSwitch.astro";
+const { sideBarActiveItemID } = Astro.props;
+
+const navItems = [
+  { id: "home", label: "简介", href: "/" },
+  { id: "news", label: "动态", href: "/news" },
+  { id: "publications", label: "论文", href: "/publications" },
+  { id: "students", label: "学生", href: "/students" },
+  { id: "projects", label: "项目", href: "/projects" },
+  { id: "honors", label: "荣誉", href: "/honors" },
+];
 ---
-<div
-  class="sticky lg:hidden top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-100 text-base-content shadow-sm"
->
-  <div class="navbar">
-    <div class="navbar-start">
-      <label for="my-drawer" class="btn btn-square btn-ghost">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"
-          ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+
+<header class="sticky top-0 z-30 w-full bg-base-100/90 backdrop-blur border-b border-base-200 transition-all">
+  <div class="max-w-[960px] mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+    <!-- 手机端下拉菜单按钮 -->
+    <div class="dropdown md:hidden">
+      <label tabindex="0" class="btn btn-ghost btn-circle" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </label>
+      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow-lg bg-base-100 rounded-box w-40 border border-base-200">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                "py-2 text-base",
+                sideBarActiveItemID === item.id ? "text-blue-600 font-bold bg-base-200/60" : "text-slate-700"
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
-    <div class="navbar-center">
-      <a class="btn btn-ghost normal-case text-xl" href="/">Manuel Ernesto ⚡️</a>
-      <LangSwitch/>
+
+    <!-- 电脑端左侧占位，确保中间 6 个栏目视觉居中 -->
+    <div class="hidden md:block w-24"></div>
+
+    <!-- 电脑端横向导航栏目 -->
+    <nav class="hidden md:flex items-center space-x-8">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "text-base transition-colors py-1",
+            sideBarActiveItemID === item.id
+              ? "text-blue-600 font-bold border-b-2 border-blue-600"
+              : "text-slate-700 hover:text-blue-600 font-medium"
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- 右侧中英文切换按钮 -->
+    <div class="flex items-center">
+      <LangSwitch />
     </div>
-    <div class="navbar-end"></div>
   </div>
-</div>
+</header>
